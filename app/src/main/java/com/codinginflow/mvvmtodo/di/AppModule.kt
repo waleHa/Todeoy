@@ -1,4 +1,4 @@
-package com.codinginflow.di
+package com.codinginflow.mvvmtodo.di
 
 import android.app.Application
 import androidx.room.Room
