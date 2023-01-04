@@ -40,7 +40,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_fragment_task, menu)
         val searchItem = menu.findItem(R.id.action_search)
-        val searchView =  searchItem.actionView as SearchView
+        val searchView = searchItem.actionView as SearchView
 
         searchView.onQueryTextChanged {
             //to be updated
@@ -49,19 +49,21 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
+        return when (item.itemId) {
             R.id.action_sort_by_name -> {
-
+                viewModel.sortOrder.value = SortOrder.BY_NAME
                 true
             }
-            R.id.action_sort_by_date_created ->{
+            R.id.action_sort_by_date_created -> {
+                viewModel.sortOrder.value = SortOrder.BY_DATE
                 true
             }
-            R.id.action_hide_completed_tasks ->{
+            R.id.action_hide_completed_tasks -> {
                 item.isChecked = !item.isChecked
+                viewModel.hideCompleted.value = item.isChecked
                 true
             }
-            R.id.action_delete_all_completed_tasks ->{
+            R.id.action_delete_all_completed_tasks -> {
 
                 true
             }
