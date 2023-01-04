@@ -6,6 +6,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.codinginflow.mvvmtodo.data.PreferencesRepository
 import com.codinginflow.mvvmtodo.data.SortOrder
+import com.codinginflow.mvvmtodo.data.Task
 import com.codinginflow.mvvmtodo.data.TaskDao
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
@@ -18,7 +19,8 @@ class TasksViewModel @ViewModelInject constructor(
     private val preferencesRepository: PreferencesRepository
 ) : ViewModel() {
     val searchQuery = MutableStateFlow("")
-//    val sortOrder = MutableStateFlow(SortOrder.BY_DATE)
+
+    //    val sortOrder = MutableStateFlow(SortOrder.BY_DATE)
 //    val hideCompleted = MutableStateFlow(false)
     val preferencesFlow = preferencesRepository.preferencesFLow
 
@@ -26,18 +28,27 @@ class TasksViewModel @ViewModelInject constructor(
         combine(searchQuery, preferencesFlow) { query, filteredPreferences ->
             Pair(query, filteredPreferences)
         }
-        .flatMapLatest {
-            taskDao.getTasks(it.first,it.second.sortOrder,it.second.hideCompleted )
-        }
+            .flatMapLatest {
+                taskDao.getTasks(it.first, it.second.sortOrder, it.second.hideCompleted)
+            }
+
+    val tasks = taskFlow.asLiveData() //taskDao.getTasks("").asLiveData()
 
     fun onSortOrderSelected(sortOrder: SortOrder) = viewModelScope.launch {
         preferencesRepository.updateSortOrder(sortOrder)
     }
 
-    fun onHideCompleted(hideCompleted:Boolean) = viewModelScope.launch {
+    fun onHideCompleted(hideCompleted: Boolean) = viewModelScope.launch {
         preferencesRepository.updateHideCompleted(hideCompleted)
     }
 
-    val tasks = taskFlow.asLiveData() //taskDao.getTasks("").asLiveData()
+
+    fun onTaskCheckedChanged(task: Task, isChecked: Boolean) = viewModelScope.launch {
+        taskDao.update(task.copy(completed = isChecked))
+    }
+
+    fun onTaskSelected(task: Task) {
+
+    }
 
 }
