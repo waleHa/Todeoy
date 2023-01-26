@@ -20,7 +20,7 @@ import com.codinginflow.mvvmtodo.data.Task
 import com.codinginflow.mvvmtodo.databinding.FragmentTasksBinding
 import com.codinginflow.mvvmtodo.util.Constants.ADD_EDIT_REQUEST
 import com.codinginflow.mvvmtodo.util.Constants.ADD_EDIT_RESULT
-import com.codinginflow.mvvmtodo.util.exhaustive
+//import com.codinginflow.mvvmtodo.util.exhaustive
 import com.codinginflow.mvvmtodo.util.onQueryTextChanged
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -113,7 +113,8 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClic
                             TasksFragmentDirections.actionGlobalDeleteAllCompletedDialogFragment()
                         findNavController().navigate(action)
                     }
-                }.exhaustive
+                }
+//                    .exhaustive
             }
         }
 

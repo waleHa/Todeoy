@@ -11,7 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MVVMTodo">
         <activity android:name="com.codinginflow.mvvmtodo.ui.MainActivity"
-            android:windowSoftInputMode="adjustResize">
+
+            android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="adjustResize"
+            >
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

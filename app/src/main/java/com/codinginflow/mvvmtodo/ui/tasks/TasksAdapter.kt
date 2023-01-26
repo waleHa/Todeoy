@@ -1,5 +1,7 @@
 package com.codinginflow.mvvmtodo.ui.tasks
 
+import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -8,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.codinginflow.mvvmtodo.data.Task
 import com.codinginflow.mvvmtodo.databinding.ItemTaskBinding
+import kotlin.random.Random
 
 class TasksAdapter(private val listener: OnItemClickListener) :
     ListAdapter<Task, TasksAdapter.TasksViewHolder>(DiffCallBack()) {
@@ -51,10 +54,26 @@ class TasksAdapter(private val listener: OnItemClickListener) :
                 textViewName.text = task.name
                 textViewName.paint.isStrikeThruText = task.completed
                 labelPriority.isVisible = task.important
+                textViewName.setBackgroundColor(Color.parseColor("${rand()}"))
             }
         }
     }
+    fun rand(): String {
+        val randomColor = randomCreater()
+        return "#$randomColor"
+    }
 
+    fun randomCreater(): String {
+        var color = ""
+        val list = listOf(
+            "F", "E", "D", "D", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"
+        )
+        for (i in 0..7) {
+            val random0 = Random.nextInt(0, 14)
+            color += list[random0]
+        }
+        return color
+    }
     interface OnItemClickListener {
         fun onItemClick(task: Task)
         fun onCheckBoxClick(task: Task, isChecked: Boolean)

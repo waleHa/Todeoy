@@ -44,7 +44,7 @@ android {
 }
 
 dependencies {
-    // Default dependencies
+        // Default dependencies
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     implementation "androidx.core:core-ktx:$ktxVersion"
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
